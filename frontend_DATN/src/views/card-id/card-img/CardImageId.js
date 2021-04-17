@@ -3,8 +3,11 @@ import React, { useState, useRef } from "react";
 
 const CardImageId = () => {
   const [avatar, setAvatar] = useState({ file: "", imagePreviewUrl: "" });
+  const [backImage, setBackImage] = useState({ file: "", imagePreviewUrl: "" });
   const uploadRef = useRef(null);
+  const uploadRefBackImage = useRef(null);
   let $imagePreview = null;
+  let imageBack = null;
 
   const onUploadAvatar = (e) => {
     let reader = new FileReader();
@@ -20,6 +23,20 @@ const CardImageId = () => {
     reader.readAsDataURL(file);
   };
 
+  const onUploadBackImage = (e) => {
+    let reader = new FileReader();
+    let file = e.target.files[0];
+    if (!file) return;
+
+    reader.onload = () => {
+      //   setTemporaryUploadLink({ file_path: file });
+      setBackImage({ file: file, imagePreviewUrl: reader.result });
+      console.log("ASSAF", file);
+      //   uploadAvatar(temporaryUploadLink.link, file);
+    };
+    reader.readAsDataURL(file);
+  };
+  // front image
   if (avatar.imagePreviewUrl) {
     $imagePreview = (
       <CImg
@@ -31,6 +48,26 @@ const CardImageId = () => {
     );
   } else {
     $imagePreview = (
+      <CImg
+        src="https://i.stack.imgur.com/l60Hf.png"
+        alt="IMG"
+        width={100 + "%"}
+        height="200"
+      />
+    );
+  }
+  // back image
+  if (backImage.imagePreviewUrl) {
+    imageBack = (
+      <CImg
+        src={backImage.imagePreviewUrl}
+        alt="IMG"
+        width={100 + "%"}
+        height="200"
+      />
+    );
+  } else {
+    imageBack = (
       <CImg
         src="https://i.stack.imgur.com/l60Hf.png"
         alt="IMG"
@@ -120,6 +157,44 @@ const CardImageId = () => {
                 </div>
               </div>
             </div>
+          </CCol>
+        </CRow>
+        <CRow>
+          <CCol md={6}>
+            <div className="avatar-user">
+              {imageBack}
+
+              <div className="overlay"></div>
+              <CButton
+                className="avatar-user--button"
+                onClick={() => {
+                  uploadRefBackImage.current.click();
+                  // getTemporaryUploadLink();
+                }}
+              >
+                Upload
+              </CButton>
+              <CButton
+                className="avatar-user--button"
+                onClick={() => {
+                  console.log("123");
+                }}
+              >
+                Trich xuat
+              </CButton>
+              <input
+                className="avatar-user--input"
+                type="file"
+                id="myFile"
+                name="filename"
+                ref={uploadRefBackImage}
+                style={{ display: "none" }}
+                accept="image/x-png,image/gif,image/jpeg"
+                onChange={onUploadBackImage}
+              />
+            </div>
+          </CCol>
+          <CCol md={6}>
             <div
               className="back-image"
               style={{ width: 100 + "%", marginTop: 2 + "rem" }}
