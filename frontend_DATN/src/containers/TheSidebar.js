@@ -7,9 +7,9 @@ import {
   CSidebarNav,
   CSidebarNavDivider,
   CSidebarNavTitle,
-  CNavItem,
-  CProgress,
-  CSidebarMinimizer,
+  // CNavItem,
+  // CProgress,
+  // CSidebarMinimizer,
   CSidebarNavDropdown,
   CSidebarNavItem,
 } from "@coreui/react";

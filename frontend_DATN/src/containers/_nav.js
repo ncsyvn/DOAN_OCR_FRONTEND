@@ -471,6 +471,12 @@ export default [
     to: "/manage-card",
     icon: "cil-user",
   },
+  {
+    _tag: "CSidebarNavItem",
+    name: "Camera Image",
+    to: "/camera-image",
+    icon: "cil-user",
+  },
   // {
   //   _tag: "CSidebarNavDivider",
   //   className: "m-2",

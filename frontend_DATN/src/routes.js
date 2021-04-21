@@ -92,6 +92,9 @@ const CardImageId = React.lazy(() =>
 const ManageCard = React.lazy(() =>
   import("./views/manage-card/list-card/ListCard")
 );
+const CameraImage = React.lazy(() =>
+  import("./views/camera-image/image/CameraImage")
+);
 
 const routes = [
   { path: "/", exact: true, name: "Home" },
@@ -201,6 +204,12 @@ const routes = [
     exact: true,
     name: "Manage Card",
     component: ManageCard,
+  },
+  {
+    path: "/camera-image",
+    exact: true,
+    name: "Camera Image",
+    component: CameraImage,
   },
 ];
 
