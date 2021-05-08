@@ -93,7 +93,7 @@ const CardImageId = () => {
                   // getTemporaryUploadLink();
                 }}
               >
-                Upload
+                Tải lên
               </CButton>
               <CButton
                 className="avatar-user--button"
@@ -101,7 +101,7 @@ const CardImageId = () => {
                   console.log("123");
                 }}
               >
-                Trich xuat
+                Trích xuất
               </CButton>
               <input
                 className="avatar-user--input"
@@ -117,42 +117,42 @@ const CardImageId = () => {
           </CCol>
           <CCol md={6}>
             <div className="front-image" style={{ width: 100 + "%" }}>
-              <h3>Mat Truoc</h3>
+              <h3>Mặt trước</h3>
               <div className="list">
                 <div className="item">
-                  <h5>So chung minh thu nhan dan:</h5>
+                  <h5>Số thẻ:</h5>
                   <span>1231243423</span>
                 </div>
                 <div className="item">
-                  <h5>Ho va ten khai sinh:</h5>
+                  <h5>Họ và tên:</h5>
                   <span>Chu Minh Quy</span>
                 </div>
-                <div className="item">
-                  <h5>Ho va ten goi khac:</h5>
+                {/* <div className="item">
+                  <h5>Ngày sinh:</h5>
                   <span>Minky Chu</span>
-                </div>
+                </div> */}
                 <div className="item">
-                  <h5>Ngay thang nam sinh:</h5>
+                  <h5>Ngày sinh:</h5>
                   <span>28/02/1997</span>
                 </div>
                 <div className="item">
-                  <h5>Gioi Tinh:</h5>
+                  <h5>Giới tính:</h5>
                   <span>Nam</span>
                 </div>
                 <div className="item">
-                  <h5>Dan toc:</h5>
+                  <h5>Dân tộc:</h5>
                   <span>Kinh</span>
                 </div>
                 <div className="item">
-                  <h5>Que Quan:</h5>
-                  <span>Ha Noi</span>
+                  <h5>Quê quán:</h5>
+                  <span>Hà Nội</span>
                 </div>
                 <div className="item">
-                  <h5>Noi thuong tru:</h5>
-                  <span>Ha Noi</span>
+                  <h5>Thường trú:</h5>
+                  <span>Hà Nội</span>
                 </div>
                 <div className="item">
-                  <h5>Co gia tri den:</h5>
+                  <h5>Có giá trị đến:</h5>
                   <span>26/3/2021</span>
                 </div>
               </div>
@@ -172,7 +172,7 @@ const CardImageId = () => {
                   // getTemporaryUploadLink();
                 }}
               >
-                Upload
+                Tải lên
               </CButton>
               <CButton
                 className="avatar-user--button"
@@ -180,7 +180,7 @@ const CardImageId = () => {
                   console.log("123");
                 }}
               >
-                Trich xuat
+                Trích xuất
               </CButton>
               <input
                 className="avatar-user--input"
@@ -199,23 +199,15 @@ const CardImageId = () => {
               className="back-image"
               style={{ width: 100 + "%", marginTop: 2 + "rem" }}
             >
-              <h3>Mat Sau</h3>
+              <h3>Mặt sau</h3>
               <div className="list">
                 <div className="item">
-                  <h5>Dac diem nhan dang:</h5>
-                  <span>Ngheo</span>
-                </div>
-                <div className="item">
-                  <h5>Ngay cap:</h5>
+                  <h5>Ngày cấp:</h5>
                   <span>26/3/2021</span>
                 </div>
                 <div className="item">
-                  <h5>Noi cap:</h5>
-                  <span>Ha Noi</span>
-                </div>
-                <div className="item">
-                  <h5>Nguoi cap:</h5>
-                  <span>Minky Chu</span>
+                  <h5>Nơi cấp:</h5>
+                  <span>Hà Nội</span>
                 </div>
               </div>
             </div>

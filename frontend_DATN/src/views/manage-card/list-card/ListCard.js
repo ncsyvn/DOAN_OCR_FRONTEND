@@ -29,18 +29,18 @@ import UpdateCardId from "../update-card/UpdateCardId";
 //   }
 // };
 const fields = [
-  "name",
-  "dateOfBirth",
-  "cardNumber",
-  "gender",
-  "danToc",
-  "queQuan",
-  "noiThuongTru",
-  "ddnd",
-  "cardExp",
-  "noiCap",
-  "nguoiCap",
-  "action",
+  { key: "no", label: "STT" },
+  { key: "name", label: "Họ và tên" },
+  { key: "dateOfBirth", label: "Ngày sinh" },
+  { key: "cardNumber", label: "Số thẻ" },
+  { key: "gender", label: "Giới tính" },
+  { key: "danToc", label: "Dân tộc" },
+  { key: "queQuan", label: "Tôn Giáo" },
+  { key: "noiThuongTru", label: "Thường trú" },
+  { key: "cardExp", label: "Có giá trị đến ngày" },
+  { key: "nguoiCap", label: "Ngày cấp" },
+  { key: "noiCap", label: "Nơi cấp" },
+  { key: "action", label: "" },
 ];
 
 const ListCard = (props) => {
@@ -59,6 +59,7 @@ const ListCard = (props) => {
     <div>
       <AddCardID
         initialValues={{
+          cardNumber: "123345567678",
           gender: "male",
           first_name: "Quy",
           last_name: "Chu",
@@ -87,7 +88,10 @@ const ListCard = (props) => {
           email: "mnhquy2802",
           noi_cap: "Ha Noi",
           que_quan: "Ha Noi",
-          ddnd: "Ngheo",
+          image_front:
+            "https://cdn.thukyluat.vn/nhch-images//CauHoi_Hinh/90c62f58-aa7d-41a5-91e9-ec6f59693af3.jpg",
+          image_back:
+            "https://i.pinimg.com/originals/0e/a6/07/0ea60749572d399218b842931f892f86.jpg",
         }}
         // setData={setData}
         show={modalUpdate}
@@ -117,22 +121,30 @@ const ListCard = (props) => {
                 itemsPerPage={5}
                 pagination
                 scopedSlots={{
+                  no: (item) => <td>{item.id + 1}</td>,
                   action: (item) => (
                     <td>
                       <div>
                         <CButton
                           color="primary"
                           variant="ghost"
-                          onClick={toggle}
+                          onClick={toggleUpdate}
                         >
                           <CIcon name="cil-pencil" />
                         </CButton>
                         <CButton
-                          onClick={toggleUpdate}
+                          onClick={toggle}
                           variant="ghost"
                           color="primary"
                         >
                           <i className="fas fa-plus-square"></i>
+                        </CButton>
+                        <CButton
+                          onClick={toggle}
+                          variant="ghost"
+                          color="primary"
+                        >
+                          Delete
                         </CButton>
                       </div>
                     </td>

@@ -14,6 +14,7 @@ import {
   CInputGroup,
   CSpinner,
   CModalFooter,
+  CImg,
 } from "@coreui/react";
 import { Formik } from "formik";
 import * as Yup from "yup";
@@ -47,7 +48,7 @@ const UpdateCardId = (props) => {
     <div>
       <CModal show={props.show} centered closeOnBackdrop={false}>
         <CModalHeader closeButton>
-          Update Information
+          Thông tin chi tiết
           {/* <i className="fa fa-close cursor-pointer" onClick={showAttention} /> */}
         </CModalHeader>
         <CModalBody>
@@ -100,6 +101,25 @@ const UpdateCardId = (props) => {
               // setFieldValue,
             }) => (
               <CForm onSubmit={handleSubmit}>
+                <CFormGroup>
+                  <CFormGroup>
+                    <CInput
+                      type="text"
+                      placeholder="Số thẻ "
+                      //invalid={values.password !== '' && touched.password && !!errors.password}
+                      autoComplete="card_number"
+                      maxLength={20}
+                      value={values.card_number}
+                      onBlur={handleBlur}
+                      onChange={(e) => handleChange(e)}
+                      name="card_number"
+                    />
+
+                    <CInvalidFeedback>{errors.card_number}</CInvalidFeedback>
+                  </CFormGroup>
+
+                  <CInvalidFeedback>{errors.first_name}</CInvalidFeedback>
+                </CFormGroup>
                 <CInputGroup className="mb-3">
                   <CInput
                     style={{ fontSize: 5, maxWidth: 60 }}
@@ -196,22 +216,6 @@ const UpdateCardId = (props) => {
                 <CFormGroup>
                   <CInput
                     type="text"
-                    placeholder="Phone Number "
-                    //invalid={values.password !== '' && touched.password && !!errors.password}
-                    autoComplete="phone_number "
-                    maxLength={20}
-                    value={values.card_number}
-                    onBlur={handleBlur}
-                    onChange={(e) => handleChange(e)}
-                    name="card_number"
-                  />
-
-                  <CInvalidFeedback>{errors.card_number}</CInvalidFeedback>
-                </CFormGroup>
-
-                <CFormGroup>
-                  <CInput
-                    type="text"
                     placeholder="Noi Cap"
                     invalid={
                       values.noi_cap !== "" &&
@@ -268,6 +272,47 @@ const UpdateCardId = (props) => {
                   />
 
                   <CInvalidFeedback>{errors.ddnd}</CInvalidFeedback>
+                </CFormGroup>
+
+                <CFormGroup>
+                  <CImg
+                    type="image"
+                    placeholder="Ảnh mặt trước"
+                    // invalid={
+                    //   values.ddnd !== "" && touched.ddnd && !!errors.ddnd
+                    // }
+                    // autoComplete="bio"
+                    // value={values.ddnd}
+                    // onBlur={handleBlur}
+                    // onChange={(e) => {
+                    //   handleChange(e);
+                    // }}
+                    src={values.image_front}
+                    name="image_front"
+                    height={200}
+                  />
+
+                  <CInvalidFeedback>{errors.image_front}</CInvalidFeedback>
+                </CFormGroup>
+                <CFormGroup>
+                  <CImg
+                    type="image"
+                    placeholder="Ảnh mặt sau"
+                    // invalid={
+                    //   values.ddnd !== "" && touched.ddnd && !!errors.ddnd
+                    // }
+                    // autoComplete="bio"
+                    // value={values.ddnd}
+                    // onBlur={handleBlur}
+                    // onChange={(e) => {
+                    //   handleChange(e);
+                    // }}
+                    src={values.image_back}
+                    name="image_back"
+                    height={200}
+                  />
+
+                  <CInvalidFeedback>{errors.image_back}</CInvalidFeedback>
                 </CFormGroup>
 
                 <CFormGroup>
