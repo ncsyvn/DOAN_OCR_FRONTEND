@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   // CBadge,
   CCard,
@@ -10,9 +10,10 @@ import {
   CButton,
 } from "@coreui/react";
 import CIcon from "@coreui/icons-react";
-import usersData from "../../users/UsersData";
+//import usersData from "../../users/UsersData";
 import AddCardID from "../add-card/AddCardID";
 import UpdateCardId from "../update-card/UpdateCardId";
+import axios from "axios";
 
 // const getBadge = (status) => {
 //   switch (status) {
@@ -44,8 +45,19 @@ const fields = [
 ];
 
 const ListCard = (props) => {
+  const query = new URLSearchParams(props.location?.search);
+  const currentPage = Math.max(Number(query.get("page")) || 1, 1);
+  const pageSize = 10;
+
   const [modal, setModal] = useState(false);
   const [modalUpdate, setModalUpdate] = useState(false);
+  const [page, setPage] = useState(currentPage);
+  const [users, setUsers] = useState({
+    data: [],
+    loading: false,
+    total: 0,
+    totalPages: currentPage,
+  });
 
   const toggle = () => {
     setModal(!modal);
@@ -54,6 +66,29 @@ const ListCard = (props) => {
   const toggleUpdate = () => {
     setModalUpdate(!modalUpdate);
   };
+
+  const getAllUsers = () => {
+    var config = {
+      method: "get",
+      url:
+        "https://741vibt902.execute-api.us-east-2.amazonaws.com/stag/api/v1/users?page=1&page_size=12&keyword=Nguyen",
+      headers: {},
+    };
+
+    axios(config)
+      .then(function (response) {
+        // console.log(JSON.stringify(response.data));
+        setUsers(response.data);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    getAllUsers();
+    // eslint-disable-next-line
+  }, []);
 
   return (
     <div>
@@ -115,7 +150,7 @@ const ListCard = (props) => {
             </CCardHeader>
             <CCardBody>
               <CDataTable
-                items={usersData}
+                items={users.data}
                 fields={fields}
                 size="sm"
                 itemsPerPage={5}
@@ -132,13 +167,13 @@ const ListCard = (props) => {
                         >
                           <CIcon name="cil-pencil" />
                         </CButton>
-                        <CButton
+                        {/* <CButton
                           onClick={toggle}
                           variant="ghost"
                           color="primary"
                         >
                           <i className="fas fa-plus-square"></i>
-                        </CButton>
+                        </CButton> */}
                         <CButton
                           onClick={toggle}
                           variant="ghost"
