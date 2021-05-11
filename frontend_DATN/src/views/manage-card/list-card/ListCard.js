@@ -30,19 +30,47 @@ import axios from "axios";
 //   }
 // };
 const fields = [
-  { key: "no", label: "STT" },
-  { key: "name", label: "Họ và tên" },
-  { key: "dateOfBirth", label: "Ngày sinh" },
-  { key: "cardNumber", label: "Số thẻ" },
-  { key: "gender", label: "Giới tính" },
-  { key: "danToc", label: "Dân tộc" },
-  { key: "queQuan", label: "Tôn Giáo" },
-  { key: "noiThuongTru", label: "Thường trú" },
-  { key: "cardExp", label: "Có giá trị đến ngày" },
-  { key: "nguoiCap", label: "Ngày cấp" },
-  { key: "noiCap", label: "Nơi cấp" },
+  { key: "ma", label: "STT" },
+  { key: "ho_va_ten", label: "Họ và tên" },
+  { key: "ngay_sinh", label: "Ngày sinh" },
+  { key: "so_the", label: "Số thẻ" },
+  { key: "gioi_tinh", label: "Giới tính" },
+  { key: "dan_toc", label: "Dân tộc" },
+  { key: "ton_giao", label: "Tôn Giáo" },
+  { key: "que_quan", label: "Quê quán" },
+  { key: "que_quan_xa", label: "Xã" },
+  { key: "que_quan_huyen", label: "Huyện" },
+  { key: "que_quan_tinh", label: "Tỉnh" },
+  { key: "thuong_tru", label: "Thường trú" },
+  { key: "thuong_tru_xa", label: "Thường trú xã" },
+  { key: "thuong_tru_huyen", label: "Thường trú huyện" },
+  { key: "thuong_tru_tinh", label: "Thường trú tỉnh" },
+  { key: "co_gia_tri_den", label: "Có giá trị đến ngày" },
+  { key: "ngay_cap", label: "Ngày cấp" },
+  { key: "noi_cap", label: "Nơi cấp" },
   { key: "action", label: "" },
 ];
+
+const initialValuesUpdate = {
+  ho_va_ten: " ",
+  ngay_sinh: null,
+  so_the: " ",
+  dan_toc: " ",
+  gioi_tinh: " ",
+  que_quan: " ",
+  que_quan_xa: " ",
+  que_quan_huyen: " ",
+  que_quan_tinh: " ",
+  thuong_tru: " ",
+  thuong_tru_xa: " ",
+  thuong_tru_huyen: " ",
+  thuong_tru_tinh: " ",
+  co_gia_tri_den: " ",
+  ngay_cap: " ",
+  noi_cap: " ",
+  anh_mat_truoc: " ",
+  anh_mat_sau: " ",
+};
 
 const ListCard = (props) => {
   const query = new URLSearchParams(props.location?.search);
@@ -51,6 +79,10 @@ const ListCard = (props) => {
 
   const [modal, setModal] = useState(false);
   const [modalUpdate, setModalUpdate] = useState(false);
+  const [updateUserData, setUpdateUserData] = useState({
+    show: false,
+    initialValues: initialValuesUpdate,
+  });
   const [page, setPage] = useState(currentPage);
   const [users, setUsers] = useState({
     data: [],
@@ -70,8 +102,7 @@ const ListCard = (props) => {
   const getAllUsers = () => {
     var config = {
       method: "get",
-      url:
-        "https://741vibt902.execute-api.us-east-2.amazonaws.com/stag/api/v1/users?page=1&page_size=12&keyword=Nguyen",
+      url: "https://741vibt902.execute-api.us-east-2.amazonaws.com/stag/api/v1/users?page=1&page_size=12&keyword=Nguyen",
       headers: {},
     };
 
@@ -85,6 +116,8 @@ const ListCard = (props) => {
       });
   };
 
+  console.log("quy", users.data);
+
   useEffect(() => {
     getAllUsers();
     // eslint-disable-next-line
@@ -94,7 +127,7 @@ const ListCard = (props) => {
     <div>
       <AddCardID
         initialValues={{
-          cardNumber: "123345567678",
+          so_the: { users },
           gender: "male",
           first_name: "Quy",
           last_name: "Chu",
@@ -114,26 +147,13 @@ const ListCard = (props) => {
       />
 
       <UpdateCardId
-        initialValues={{
-          gender: "male",
-          first_name: "Quy",
-          last_name: "Chu",
-          card_number: "0868280297",
-          birth_date: "1997-02-28",
-          email: "mnhquy2802",
-          noi_cap: "Ha Noi",
-          que_quan: "Ha Noi",
-          image_front:
-            "https://cdn.thukyluat.vn/nhch-images//CauHoi_Hinh/90c62f58-aa7d-41a5-91e9-ec6f59693af3.jpg",
-          image_back:
-            "https://i.pinimg.com/originals/0e/a6/07/0ea60749572d399218b842931f892f86.jpg",
-        }}
+        initialValues={updateUserData.initialValues}
         // setData={setData}
-        show={modalUpdate}
-        toggle={toggleUpdate}
-        handleClose={() => {
-          setModalUpdate(false);
-        }}
+        show={updateUserData.show}
+        handleClose={() =>
+          setUpdateUserData({ show: false, initialValues: initialValuesUpdate })
+        }
+        //toggle={toggleUpdate}
       />
 
       <CRow>
@@ -150,20 +170,25 @@ const ListCard = (props) => {
             </CCardHeader>
             <CCardBody>
               <CDataTable
-                items={users.data}
+                items={users.data.users}
                 fields={fields}
                 size="sm"
                 itemsPerPage={5}
                 pagination
                 scopedSlots={{
-                  no: (item) => <td>{item.id + 1}</td>,
+                  no: (item) => <td>{item}</td>,
                   action: (item) => (
                     <td>
                       <div>
                         <CButton
                           color="primary"
                           variant="ghost"
-                          onClick={toggleUpdate}
+                          onClick={() => {
+                            setUpdateUserData({
+                              show: true,
+                              initialValues: item,
+                            });
+                          }}
                         >
                           <CIcon name="cil-pencil" />
                         </CButton>
